@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI-Powered Knowledge Graph</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="/static/graph.js"></script>
+</head>
+<body>
+    <h1>📚 AI-Powered Knowledge Graph</h1>
+    <form id="documentForm">
+        <textarea name="documents" placeholder="Paste your unstructured documents here" rows="10" cols="50"></textarea>
+        <button type="submit">Generate Knowledge Graph</button>
+    </form>
+    <svg></svg>
+    <script>
+        document.getElementById('documentForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/process', { method: 'POST', body: formData });
+            const graphData = await response.json();
+            drawGraph(graphData);
+        });
+    </script>
+</body>
+</html>
